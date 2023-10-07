@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service1-config
+data:
+  AllowedHosts: "*"
+  MicroservicesUrl:CustomerUrl: "http://service2:80"
+  MicroservicesUrl:OrderUrl: "http://service3:80"
+  OpenTelemetry:OtlpExporter:Endpoint: "http://localhost:4317/"
+  OpenTelemetry:OtlpExporter:ExportProcessorType: "Batch"
+  OpenTelemetry:OtlpExporter:Protocol: "grpc"
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: service1
+  template:
+    metadata:
+      annotations:
+        instrumentation.opentelemetry.io/inject-dotnet: "true"
+        instrumentation.opentelemetry.io/otel-dotnet-auto-runtime: "linux-x64" 
+      labels:
+        app: service1
+    spec:
+      containers:
+      - name: service1
+        image: cloudtown.azurecr.io/opentelemetry/service1:cg4
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef: 
+            name: service1-config
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service1
+spec:
+  selector:
+    app: service1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
