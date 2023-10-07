@@ -1,0 +1,15 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: open-telemetry/opentelemetry-operator
+  namespace: distributed-tracing-azure-monitor
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: open-telemetry/opentelemetry-operator
+      version: '0.71.0'
+      sourceRef:
+        kind: HelmRepository
+        name: opentelemetry-helm-charts
+        namespace: distributed-tracing-azure-monitor
