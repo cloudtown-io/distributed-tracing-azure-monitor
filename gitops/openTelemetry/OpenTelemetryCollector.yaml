@@ -1,0 +1,45 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: application-insights
+  namespace: distributed-tracing-azure-monitor
+spec:
+  observability: 
+    metrics:
+      enableMetrics: true
+  env:
+    - name: INSTRUMENTATIONKEY
+      valueFrom: 
+        secretKeyRef:
+          name: telemetry
+          key: InstrumentationKey
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+    processors:
+      memory_limiter:
+        check_interval: 1s
+        limit_percentage: 75
+        spike_limit_percentage: 15
+      batch:
+        send_batch_size: 10000
+        timeout: 10s
+
+    exporters:
+      azuremonitor:
+        endpoint: "https://dc.applicationinsights.azure.com/v2/track"
+        instrumentation_key: "${env:INSTRUMENTATIONKEY}"
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [azuremonitor]
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [azuremonitor]
