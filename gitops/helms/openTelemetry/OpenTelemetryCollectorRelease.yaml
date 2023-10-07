@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: opentelemetry-operator
-      version: '0.39.1'
+      version: '0.x.x'
       sourceRef:
         kind: HelmRepository
         name: opentelemetry-helm-charts
