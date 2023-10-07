@@ -2,6 +2,7 @@ apiVersion: opentelemetry.io/v1alpha1
 kind: Instrumentation
 metadata:
   name: application-insights-instrumentation
+  namespace: distributed-tracing-azure-monitor
 spec:
   exporter:
     endpoint: http://application-insights-collector:4317
