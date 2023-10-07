@@ -4,11 +4,11 @@ metadata:
   name: opentelemetry-operator
   namespace: distributed-tracing-azure-monitor
 spec:
-  interval: 5m
+  interval: 1m
   chart:
     spec:
       chart: opentelemetry-operator
-      version: '0.71.0'
+      version: 0.71.0
       sourceRef:
         kind: HelmRepository
         name: opentelemetry-helm-charts
