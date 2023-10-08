@@ -4,6 +4,7 @@ metadata:
   name: application-insights
   namespace: distributed-tracing-azure-monitor
 spec:
+  replicas: 3
   observability: 
     metrics:
       enableMetrics: true

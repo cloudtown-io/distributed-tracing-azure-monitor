@@ -5,7 +5,7 @@ metadata:
   namespace: distributed-tracing-azure-monitor
 spec:
   exporter:
-    endpoint: http://application-insights-collector:4317
+    endpoint: http://application-insights-collector:4318
   propagators:
     - tracecontext
     - baggage
