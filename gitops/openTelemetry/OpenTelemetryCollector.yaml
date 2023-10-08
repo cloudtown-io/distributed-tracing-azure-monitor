@@ -24,7 +24,7 @@ spec:
       otlp/2:
         protocols:
           grpc:
-          http:
+            endpoint: 0.0.0.0:55690
 
     processors:
       memory_limiter:
