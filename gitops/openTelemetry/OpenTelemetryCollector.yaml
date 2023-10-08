@@ -14,9 +14,14 @@ spec:
         secretKeyRef:
           name: telemetry
           key: InstrumentationKey
+
   config: |
     receivers:
       otlp:
+        protocols:
+          grpc:
+          http:
+      otlp/2:
         protocols:
           grpc:
           http:
