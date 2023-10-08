@@ -7,9 +7,9 @@ using OpenTelemetry.Service3;
 using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+
 builder.Services.AddHealthChecks();
-builder.Services.AddLogging();
+builder.Services.AddLogging().
 builder.Logging.AddJsonConsole(options => options.JsonWriterOptions = new JsonWriterOptions { Indented = true });
 builder.Logging.AddOpenTelemetry(options =>
     options.AddOtlpExporter((exporterOptions, processorOptions) => { }));
@@ -32,6 +32,7 @@ builder.Services.AddDbContext<OrderContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Orders"));
 });
 
+var app = builder.Build();
 app.MapGet("/{orderId:int}", async (int orderId, OrderContext ctx, ILogger logger, CancellationToken token) =>
 {
 
