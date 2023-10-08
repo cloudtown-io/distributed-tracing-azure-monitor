@@ -1,19 +1,19 @@
-apiVersion: opentelemetry.io/v1alpha1
-kind: Instrumentation
-metadata:
-  name: application-insights-instrumentation
-  namespace: distributed-tracing-azure-monitor
-spec:
-  exporter:
-    endpoint: http://application-insights-collector:4318
-  propagators:
-    - tracecontext
-    - baggage
-    - b3
-  sampler:
-    type: parentbased_traceidratio
-    argument: "0.25"
-  dotnet:
-    env:
-      - name: OTEL_EXPORTER_OTLP_ENDPOINT
-        value: http://application-insights-collector:4318
+# apiVersion: opentelemetry.io/v1alpha1
+# kind: Instrumentation
+# metadata:
+#   name: application-insights-instrumentation
+#   namespace: distributed-tracing-azure-monitor
+# spec:
+#   exporter:
+#     endpoint: http://application-insights-collector:4318
+#   propagators:
+#     - tracecontext
+#     - baggage
+#     - b3
+#   sampler:
+#     type: parentbased_traceidratio
+#     argument: "0.25"
+#   dotnet:
+#     env:
+#       - name: OTEL_EXPORTER_OTLP_ENDPOINT
+#         value: http://application-insights-collector:4318
