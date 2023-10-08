@@ -31,16 +31,16 @@ spec:
 
     exporters:
       azuremonitor:
-        instrumentation_key: b0cbaac7-80b6-4762-b753-3f5d85b30178
+        instrumentation_key: "b0cbaac7-80b6-4762-b753-3f5d85b30178"
       logging:
 
     service:
       pipelines:
         traces:
           receivers: [otlp]
-          processors: [batch]
-          exporters: [azuremonitor, logging]
+          processors: []
+          exporters: [azuremonitor,logging]
         metrics:
           receivers: [otlp]
-          processors: [batch]
-          exporters: [azuremonitor, logging]
+          processors: []
+          exporters: [azuremonitor,logging]
