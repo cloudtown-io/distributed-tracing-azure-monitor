@@ -1,6 +1,5 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Service3;
@@ -9,7 +8,7 @@ using OpenTelemetry.Trace;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHealthChecks();
-builder.Services.AddLogging().
+builder.Services.AddLogging();
 builder.Logging.AddJsonConsole(options => options.JsonWriterOptions = new JsonWriterOptions { Indented = true });
 builder.Logging.AddOpenTelemetry(options =>
     options.AddOtlpExporter((exporterOptions, processorOptions) => { }));
