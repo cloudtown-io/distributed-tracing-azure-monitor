@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: service1-config
+  name: service1-confi
+  namespace: distributed-tracing-azure-monitor
 data:
   MicroservicesUrl__CustomerUrl: "http://service2:80"
   MicroservicesUrl__OrderUrl: "http://service3:80"
@@ -14,6 +15,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: service1
+  namespace: distributed-tracing-azure-monitor
 spec:
   replicas: 1
   selector:
@@ -47,6 +49,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: service1
+  namespace: distributed-tracing-azure-monitor
 spec:
   selector:
     app: service1
