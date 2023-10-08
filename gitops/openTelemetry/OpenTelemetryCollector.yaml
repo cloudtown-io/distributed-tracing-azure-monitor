@@ -53,13 +53,15 @@ spec:
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [azuremonitor, logging]
+          exporters: [azuremonitor]
         traces/2:
           receivers: [otlp/2]
           processors: [batch/test]
-          exporters: [azuremonitor, logging]
-
+          exporters: [azuremonitor]
         metrics:
           receivers: [otlp]
           processors: [batch]
-          exporters: [azuremonitor, logging]
+          exporters: [azuremonitor]
+        telemetry:
+          logs:
+            level: debug
