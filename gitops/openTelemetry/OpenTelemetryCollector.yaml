@@ -37,7 +37,8 @@ spec:
     exporters:
       azuremonitor:
         endpoint: https://dc.services.visualstudio.com/v2/track
-        instrumentation_key: ${env:INSTRUMENTATIONKEY}
+        instrumentation_key: b0cbaac7-80b6-4762-b753-3f5d85b30178
+        spaneventsenabled: true
       logging:
         verbosity: detailed
 
