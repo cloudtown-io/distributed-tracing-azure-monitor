@@ -6,8 +6,8 @@ metadata:
 data:
   MicroservicesUrl__CustomerUrl: "http://service2:80"
   MicroservicesUrl__OrderUrl: "http://service3:80"
-  OpenTelemetry__OtlpExporter__Endpoint: "http://application-insights-collector:4317/"
-  OpenTelemetry__OtlpExporter__Protocol: "grpc"
+  OpenTelemetry__OtlpExporter__Endpoint: "http://application-insights-collector.distributed-tracing-azure-monitor.svc:4318/"
+  OpenTelemetry__OtlpExporter__Protocol: "http"
 ---
 
 apiVersion: apps/v1
@@ -15,6 +15,10 @@ kind: Deployment
 metadata:
   name: service1
   namespace: distributed-tracing-azure-monitor
+  annotations:
+    instrumentation.opentelemetry.io/inject-dotnet: "true"
+    instrumentation.opentelemetry.io/otel-dotnet-auto-runtime: "linux-x64" 
+    instrumentation.opentelemetry.io/inject-sdk: "true"
 spec:
   replicas: 1
   selector:
@@ -22,10 +26,10 @@ spec:
       app: service1
   template:
     metadata:
-      # annotations:
-      #   instrumentation.opentelemetry.io/inject-dotnet: "true"
-      #   instrumentation.opentelemetry.io/otel-dotnet-auto-runtime: "linux-x64" 
-      #   instrumentation.opentelemetry.io/inject-sdk: "true"
+      annotations:
+        instrumentation.opentelemetry.io/inject-dotnet: "true"
+        instrumentation.opentelemetry.io/otel-dotnet-auto-runtime: "linux-x64" 
+        instrumentation.opentelemetry.io/inject-sdk: "true"
       labels:
         app: service1
     spec:
