@@ -15,7 +15,7 @@
       "applicationUrl": "http://localhost:5055",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "OpenTelemetry__OtlpExporter__Endpoint": "http://localhost:4318"
+        "OpenTelemetry__OtlpExporter__Endpoint": "http://localhost:4317"
       }
     },
     "https": {

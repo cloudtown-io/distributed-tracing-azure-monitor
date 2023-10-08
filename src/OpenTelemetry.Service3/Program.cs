@@ -51,7 +51,8 @@ app.MapGet("/{orderId:int}", async ([FromRoute] int orderId, [FromServices] Orde
 
         logger.LogInformation("Order {OrderId} found", orderId);
         return new OrderDto(order.Id, order.Number, order.CustomerId,
-            order.Items.Select(i => new OrderItemDto(i.Name, i.Price, i.Quantity)));
+            order.Items.Select(i => new OrderItemDto(i.Name, i.Price, i.Quantity))
+                .ToArray());
     }
 });
 
