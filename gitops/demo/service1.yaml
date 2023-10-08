@@ -6,7 +6,7 @@ metadata:
 data:
   MicroservicesUrl__CustomerUrl: "http://service2:80"
   MicroservicesUrl__OrderUrl: "http://service3:80"
-  OpenTelemetry__OtlpExporter__Endpoint: "http://application-insights-collector:4317/"
+  OpenTelemetry__OtlpExporter__Endpoint: "http://application-insights-collector:4318"
   OpenTelemetry__OtlpExporter__ExportProcessorType: "Batch"
   OpenTelemetry__OtlpExporter__Protocol: "grpc"
 ---

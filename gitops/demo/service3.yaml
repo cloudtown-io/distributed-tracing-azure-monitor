@@ -4,7 +4,7 @@ metadata:
   name: service3-config
   namespace: distributed-tracing-azure-monitor
 data:
-  OpenTelemetry__OtlpExporter__Endpoint: "http://application-insights-collector:4317/"
+  OpenTelemetry__OtlpExporter__Endpoint: "http://application-insights-collector:4318"
   OpenTelemetry__OtlpExporter__ExportProcessorType: "Batch"
   OpenTelemetry__OtlpExporter__Protocol: "grpc"
 ---
