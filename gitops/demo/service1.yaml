@@ -69,7 +69,8 @@ metadata:
   namespace: distributed-tracing-azure-monitor
   annotations:
     nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-    nginx.ingress.kubernetes.io/otlp-collector-host: application-insights-collector
+    nginx.ingress.kubernetes.io/otlp-collector-host: application-insights-collector.distributed-tracing-azure-monitor.svc
+    nginx.ingress.kubernetes.io/otlp-collector-port: "4318"
     nginx.ingress.kubernetes.io/opentelemetry-trust-incoming-span: "true"
   labels:
     app: service1
