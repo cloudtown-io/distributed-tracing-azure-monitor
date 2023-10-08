@@ -30,10 +30,9 @@ spec:
         timeout: 10s
 
     exporters:
-      debug:
       azuremonitor:
         instrumentation_key: b0cbaac7-80b6-4762-b753-3f5d85b30178
-
+      debug:
 
     service:
       pipelines:
