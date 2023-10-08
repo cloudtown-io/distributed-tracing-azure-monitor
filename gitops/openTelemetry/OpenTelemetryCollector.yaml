@@ -30,8 +30,8 @@ spec:
 
     exporters:
       azuremonitor:
-        endpoint: "https://dc.applicationinsights.azure.com/v2/track"
-        instrumentation_key: "${env:INSTRUMENTATIONKEY}"
+        instrumentation_key: "${INSTRUMENTATIONKEY}"
+        spaneventsenabled: true
 
     service:
       pipelines:
