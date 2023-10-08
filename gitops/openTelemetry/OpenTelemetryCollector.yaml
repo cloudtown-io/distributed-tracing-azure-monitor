@@ -20,6 +20,7 @@ spec:
         protocols:
           grpc:
           http:
+
     processors:
       memory_limiter:
         check_interval: 1s
@@ -28,7 +29,7 @@ spec:
       batch:
         send_batch_size: 10000
         timeout: 10s
-       batch/test:
+      batch/test:
 
     exporters:
       azuremonitor:
