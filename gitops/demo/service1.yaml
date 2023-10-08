@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: service1
-        image: cloudtown.azurecr.io/opentelemetry/service1:cga
+        image: cloudtown.azurecr.io/opentelemetry/service1:cgc
         ports:
         - containerPort: 80
         envFrom:
