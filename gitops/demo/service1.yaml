@@ -57,3 +57,28 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: service1
+  namespace: distributed-tracing-azure-monitor
+  annotations:
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+    nginx.ingress.kubernetes.io/otlp-collector-host: application-insights-collector
+    nginx.ingress.kubernetes.io/opentelemetry-trust-incoming-span: "true"
+  labels:
+    app: service1
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: cloudtown.northeurope.cloudapp.azure.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service1
+            port: 
+              number: 80
