@@ -28,19 +28,32 @@ spec:
       batch:
         send_batch_size: 10000
         timeout: 10s
+       batch/test:
 
     exporters:
       azuremonitor:
-        instrumentation_key: "b0cbaac7-80b6-4762-b753-3f5d85b30178"
+        endpoint: https://dc.services.visualstudio.com/v2/track
+        instrumentation_key: ${env:INSTRUMENTATIONKEY}
       logging:
 
+    extensions:
+      health_check:
+      pprof:
+      zpages:
+
     service:
+      extensions: [health_check, pprof, zpages]
       pipelines:
         traces:
           receivers: [otlp]
-          processors: []
-          exporters: [azuremonitor,logging]
+          processors: [batch]
+          exporters: [azuremonitor, logging]
+        traces/2:
+          receivers: [otlp/2]
+          processors: [batch/test]
+          exporters: [azuremonitor, logging]
+
         metrics:
           receivers: [otlp]
-          processors: []
-          exporters: [azuremonitor,logging]
+          processors: [batch]
+          exporters: [azuremonitor, logging]
