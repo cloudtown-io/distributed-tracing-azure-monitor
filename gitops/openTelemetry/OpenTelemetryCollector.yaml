@@ -4,7 +4,7 @@ metadata:
   name: application-insights
   namespace: distributed-tracing-azure-monitor
 spec:
-  mode: sidecar
+  mode: deployment
 
   observability: 
     metrics:
