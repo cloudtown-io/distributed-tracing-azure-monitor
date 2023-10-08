@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -6,7 +7,7 @@ using OpenTelemetry.Service3;
 using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddHealthChecks();
 builder.Services.AddLogging();
 builder.Logging.AddJsonConsole(options => options.JsonWriterOptions = new JsonWriterOptions { Indented = true });
@@ -31,13 +32,17 @@ builder.Services.AddDbContext<OrderContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Orders"));
 });
 
+
 var app = builder.Build();
-app.MapGet("/{orderId:int}", async (int orderId, OrderContext ctx, ILogger logger, CancellationToken token) =>
+app.MapHealthChecks("/healthz");
+app.MapGet("/{orderId:int}", async ([FromRoute] int orderId, [FromServices] OrderContext ctx, 
+    [FromServices] ILogger<Program> logger, CancellationToken token) =>
 {
 
     using (logger.BeginScope("taking order {OrderId}", orderId))
     {
-        var order = await ctx.Orders.Include(o => o.Items).FirstOrDefaultAsync(o => o.Id == orderId, token);
+        var order = await ctx.Orders.Include(o => o.Items)
+            .FirstOrDefaultAsync(o => o.Id == orderId, token);
         if (order is null)
         {
             logger.LogError("Order {OrderId} not found", orderId);

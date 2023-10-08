@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
@@ -6,6 +7,7 @@ using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
 builder.Services.AddOptions<MicroservicesUrlOptions>()
     .Configure<IConfiguration>(
         (options, configuration) => 
@@ -30,12 +32,11 @@ builder.Services.AddOpenTelemetry()
         );
 
 var app = builder.Build();
-
+app.MapHealthChecks("/healthz");
 app.MapGet("customer/{customerId:int}/Order/{orderId:int}", 
-    async (int customerId, int orderId, IOptions<MicroservicesUrlOptions> options,
-IHttpClientFactory httpClientFactory, ILogger logger, CancellationToken token) =>
+    async ([FromRoute]int customerId, [FromRoute]int orderId, [FromServices]IOptions<MicroservicesUrlOptions> options,
+        [FromServices]IHttpClientFactory httpClientFactory, [FromServices]ILogger<Program> logger, CancellationToken token) =>
 {
-    
     
     using (logger.BeginScope("Processing Order {OrderId} for customer {CustomerId}", orderId, customerId))
     {

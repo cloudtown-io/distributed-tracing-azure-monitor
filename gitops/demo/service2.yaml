@@ -4,7 +4,7 @@ metadata:
   name: service2-config
   namespace: distributed-tracing-azure-monitor
 data:
-  OpenTelemetry__OtlpExporter__Endpoint: "http://application-insights-collector:4318"
+  OpenTelemetry__OtlpExporter__Endpoint: "http://application-insights-collector:4317/"
   OpenTelemetry__OtlpExporter__ExportProcessorType: "Batch"
   OpenTelemetry__OtlpExporter__Protocol: "grpc"
 ---
@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: service2
-        image: cloudtown.azurecr.io/opentelemetry/service2:cg3
+        image: cloudtown.azurecr.io/opentelemetry/service2:cg8
         ports:
         - containerPort: 80
         envFrom:
