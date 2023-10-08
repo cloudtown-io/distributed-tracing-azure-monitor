@@ -4,7 +4,8 @@ metadata:
   name: application-insights
   namespace: distributed-tracing-azure-monitor
 spec:
-  replicas: 3
+  mode: sidecar
+
   observability: 
     metrics:
       enableMetrics: true
@@ -62,6 +63,3 @@ spec:
           receivers: [otlp]
           processors: [batch]
           exporters: [azuremonitor]
-        telemetry:
-          logs:
-            level: debug
