@@ -23,15 +23,15 @@ spec:
       app: service1
   template:
     metadata:
-      # annotations:
-      #   instrumentation.opentelemetry.io/inject-dotnet: "true"
-      #   instrumentation.opentelemetry.io/otel-dotnet-auto-runtime: "linux-x64" 
+      annotations:
+        instrumentation.opentelemetry.io/inject-dotnet: "true"
+        instrumentation.opentelemetry.io/otel-dotnet-auto-runtime: "linux-x64" 
       labels:
         app: service1
     spec:
       containers:
       - name: service1
-        image: cloudtown.azurecr.io/opentelemetry/service1:cg7
+        image: cloudtown.azurecr.io/opentelemetry/service1:cg10
         ports:
         - containerPort: 80
         envFrom:

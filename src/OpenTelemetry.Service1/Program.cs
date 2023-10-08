@@ -7,7 +7,11 @@ using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddEnvironmentVariables();
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)       
+    .AddJsonFile($"appsettings{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
 builder.Services.AddOptions<MicroservicesUrlOptions>()
     .Configure<IConfiguration>(
         (options, configuration) => 
@@ -32,6 +36,9 @@ builder.Services.AddOpenTelemetry()
         );
 
 var app = builder.Build();
+
+Console.WriteLine($"send metrics and trace to: {app.Configuration.GetValue<string>("OpenTelemetry:OtlpExporter:Endpoint")}");
+
 app.MapHealthChecks("/healthz");
 app.MapGet("customer/{customerId:int}/Order/{orderId:int}", 
     async ([FromRoute]int customerId, [FromRoute]int orderId, [FromServices]IOptions<MicroservicesUrlOptions> options,
